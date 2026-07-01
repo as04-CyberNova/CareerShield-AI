@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerShield AI — Student Scam Protection & Resume Optimization</title>
+  <meta name="description" content="Protect your early career journey. Analyze job messages for fraud and optimize your resume for ATS systems using Gemini AI.">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Chart.js for visualization -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <!-- PDF.js for client-side PDF parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div>
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <!-- Shield with checkmark / radar icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/>
+              <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="brand-name">CareerShield AI</span>
+        </a>
+
+        <ul class="nav-links">
+          <li class="nav-item active" data-tab="dashboard">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="7" height="9" rx="1" />
+                <rect x="14" y="3" width="7" height="5" rx="1" />
+                <rect x="14" y="12" width="7" height="9" rx="1" />
+                <rect x="3" y="16" width="7" height="5" rx="1" />
+              </svg>
+              Dashboard
+            </button>
+          </li>
+          <li class="nav-item" data-tab="analyzer">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              Scam Analyzer
+            </button>
+          </li>
+          <li class="nav-item" data-tab="scorer">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+              Resume Scorer
+            </button>
+          </li>
+          <li class="nav-item" data-tab="trust">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                <path d="M2 12h20"/>
+              </svg>
+              Company Trust
+            </button>
+          </li>
+          <li class="nav-item" data-tab="roadmap">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="6" cy="19" r="3" />
+                <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+                <circle cx="18" cy="5" r="3" />
+              </svg>
+              Career Roadmap
+            </button>
+          </li>
+          <li class="nav-item" data-tab="match">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+              Internship Match
+            </button>
+          </li>
+          <li class="nav-item" data-tab="interview">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Interview Prep
+            </button>
+          </li>
+          <li class="nav-item" data-tab="coverletter">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+              Cover Letter
+            </button>
+          </li>
+          <li class="nav-item" data-tab="profile">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <polyline points="17 11 19 13 23 9"/>
+              </svg>
+              Profile Optimizer
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Cloud Authentication Panel -->
+      <div id="auth-panel" class="sidebar-auth-panel" style="margin-top: auto; padding: 1.25rem 1rem; border-top: 1px solid var(--border-light);">
+        <!-- State: Unauthenticated -->
+        <div id="auth-state-unlogged">
+          <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>☁️</span> Cloud Backup
+          </h4>
+          <p style="font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.3;">
+            Sign in to sync your scans history and mock roadmaps across devices.
+          </p>
+          <button id="btn-show-auth" class="btn btn-primary" style="font-size: 0.75rem; padding: 0.4rem 0.85rem; width: 100%; justify-content: center; font-weight: 600;">
+            Sign In / Register
+          </button>
+        </div>
+        
+        <!-- State: Authenticated -->
+        <div id="auth-state-logged" style="display: none;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--color-safe); margin-bottom: 0.15rem; display: flex; align-items: center; gap: 0.35rem;">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" style="flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Cloud Synced
+          </h4>
+          <p id="auth-user-email" style="font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            user@example.com
+          </p>
+          <button id="btn-auth-logout" class="btn" style="font-size: 0.75rem; padding: 0.4rem 0.85rem; width: 100%; justify-content: center; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: var(--text-primary);">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <div class="sidebar-footer" style="padding-top: 0.5rem; margin-top: 0;">
+        <p><strong>CareerShield AI v1.0</strong></p>
+        <p>LLM-reasoning based analysis. Supported by Gemini API.</p>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Shared Header -->
+      <header class="header">
+        <div class="header-title">
+          <h2 id="current-view-title">Dashboard Overview</h2>
+          <p id="current-view-desc">Monitor security checks and resume optimization history.</p>
+        </div>
+        <div id="demo-mode-indicator" class="demo-badge" style="display: none;">
+          Demo Mode (API Key Missing)
+        </div>
+      </header>
+
+      <!-- --------------------- VIEW 1: DASHBOARD --------------------- -->
+      <section id="dashboard-view" class="tab-panel active">
+        <!-- Stats Summary Row -->
+        <div class="stats-grid">
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-scans">0</span>
+              <span class="stat-label">Scam Scans Done</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-avg-risk">0%</span>
+              <span class="stat-label">Avg Scam Risk</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-best-resume">0/100</span>
+              <span class="stat-label">Best Resume Score</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                <path d="M2 12h20"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-avg-trust">0%</span>
+              <span class="stat-label">Avg Company Trust</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="6" cy="19" r="3" />
+                <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+                <circle cx="18" cy="5" r="3" />
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-roadmaps">0</span>
+              <span class="stat-label">Active Roadmaps</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-avg-match">0%</span>
+              <span class="stat-label">Avg Match Score</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-dasharray="null" stroke-dashoffset="null" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: #8b5cf6;">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-lessons">0</span>
+              <span class="stat-label">Lessons Viewed</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-dasharray="null" stroke-dashoffset="null" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: #ec4899;">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-coverletters">0</span>
+              <span class="stat-label">Cover Letters</span>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-dasharray="null" stroke-dashoffset="null" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: #3b82f6;">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-profiles">0</span>
+              <span class="stat-label">Profile Audits</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-grid">
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;">Scam Risk History</h3>
+            <div style="position: relative; height: 260px;">
+              <canvas id="scamChart"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;">Resume Score History</h3>
+            <div style="position: relative; height: 260px;">
+              <canvas id="resumeChart"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;">Company Trust History</h3>
+            <div style="position: relative; height: 260px;">
+              <canvas id="trustChart"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;">Internship Match History</h3>
+            <div style="position: relative; height: 260px;">
+              <canvas id="matchChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Logs -->
+        <div class="card" style="margin-bottom: 2rem;">
+          <h3>Recent Scanning History</h3>
+          <div class="history-table-container">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Date & Time</th>
+                  <th>Details/Subject</th>
+                  <th>Score/Result</th>
+                </tr>
+              </thead>
+              <tbody id="history-rows">
+                <!-- Dynamic Content Insertion -->
+                <tr>
+                  <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">
+                    No scans registered yet. Switch to the Scam Analyzer or Resume Scorer tab to start!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------- VIEW 2: SCAM ANALYZER --------------------- -->
+      <section id="analyzer-view" class="tab-panel">
+        <div class="card">
+          <div class="form-group">
+            <label for="scam-text-input" class="form-label">Paste recruitment message details:</label>
+            <textarea id="scam-text-input" class="textarea-input" placeholder="Paste the job description, unsolicited emails, LinkedIn/WhatsApp/Telegram messages, offer letters, or training requests here..."></textarea>
+            <div class="char-counter"><span id="scam-char-count">0</span> characters</div>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <button id="btn-analyze-scam" class="btn btn-primary" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Analyze Message Security
+            </button>
+            <button id="btn-clear-scam" class="btn" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: var(--text-primary);">Clear</button>
+          </div>
+        </div>
+
+        <!-- Loading Overlay (hidden initially) -->
+        <div id="scam-loading" class="card loading-overlay" style="display: none; margin-top: 2rem;">
+          <div class="spinner-wrapper">
+            <div class="spinner"></div>
+            <div class="spinner-inner"></div>
+          </div>
+          <div class="loading-text">Analyzing Recruitment Context</div>
+          <div class="loading-subtext">Gemini is scrutinizing sender context, offer parameters, and potential red flags...</div>
+        </div>
+
+        <!-- Results Card (hidden initially) -->
+        <div id="scam-results" class="results-grid" style="display: none;">
+          <!-- Risk Gauge Card -->
+          <div class="card risk-indicator-card">
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg" viewBox="0 0 100 100">
+                <circle class="gauge-bg" cx="50" cy="50" r="40"></circle>
+                <circle id="scam-gauge-fill" class="gauge-fill" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+              </svg>
+              <div class="gauge-text">
+                <span id="scam-score-num" class="gauge-number">0</span>
+                <span class="gauge-label">Risk score</span>
+              </div>
+            </div>
+            <span id="scam-level-badge" class="badge-level">Unknown</span>
+          </div>
+
+          <!-- Analysis Detail Cards -->
+          <div class="card details-card">
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                Identified Red Flags
+              </h3>
+              <ul id="scam-flags-list" class="flag-list">
+                <!-- Flags will insert dynamically -->
+              </ul>
+            </div>
+
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                Actionable Recommendation
+              </h3>
+              <div id="scam-recommendation-box" class="recommendation-text">
+                <!-- Recommendation text goes here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------- VIEW 3: RESUME SCORER --------------------- -->
+      <section id="scorer-view" class="tab-panel">
+        <div class="card">
+          <!-- Drop Area -->
+          <div id="resume-dropzone" class="upload-container">
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <div>
+              <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0.25rem;">Upload your Resume</p>
+              <p style="color: var(--text-secondary); font-size: 0.85rem;">Drag and drop your PDF or TXT resume here, or click to browse</p>
+            </div>
+            <input type="file" id="resume-file-input" class="file-input" accept=".pdf,.txt">
+          </div>
+          
+          <div id="parse-status" style="margin-top: 1rem; display: none;" class="card stat-card">
+            <div class="stat-icon" style="width: 40px; height: 40px;">
+              <svg viewBox="0 0 24 24" stroke="var(--primary)" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label" style="font-weight: 600;" id="parsed-filename">Selected: resume.pdf</span>
+              <span class="stat-label" id="parsed-char-count">Parsed 1,532 text characters. Ready to score.</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button id="btn-score-resume" class="btn btn-primary" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0;">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              Score Resume Quality
+            </button>
+            <button id="btn-clear-resume" class="btn" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: var(--text-primary);">Clear</button>
+          </div>
+        </div>
+
+        <!-- Loading Overlay (hidden initially) -->
+        <div id="resume-loading" class="card loading-overlay" style="display: none; margin-top: 2rem;">
+          <div class="spinner-wrapper">
+            <div class="spinner"></div>
+            <div class="spinner-inner"></div>
+          </div>
+          <div class="loading-text">Analyzing Resume Structure & Fit</div>
+          <div class="loading-subtext">Gemini is checking formatting parser-friendliness, counting keywords, and evaluating impacts...</div>
+        </div>
+
+        <!-- Results Card (hidden initially) -->
+        <div id="resume-results" class="results-grid" style="display: none;">
+          <!-- Score Gauge Card -->
+          <div class="card risk-indicator-card">
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg" viewBox="0 0 100 100">
+                <circle class="gauge-bg" cx="50" cy="50" r="40"></circle>
+                <circle id="resume-score-gauge-fill" class="gauge-fill" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+              </svg>
+              <div class="gauge-text">
+                <span id="resume-score-num" class="gauge-number">0</span>
+                <span class="gauge-label">Quality Score</span>
+              </div>
+            </div>
+            <span id="resume-level-badge" class="badge-level">Unknown</span>
+          </div>
+
+          <!-- Analysis Detail Cards -->
+          <div class="card details-card">
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                ATS Compatibility Notes
+              </h3>
+              <ul id="resume-ats-list" class="ats-list">
+                <!-- Notes will insert dynamically -->
+              </ul>
+            </div>
+
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2l3.09 6.26 6.91 1.01-5 4.87 1.18 6.88L12 17.77l-6.18 3.01L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Recommended Missing Keywords
+              </h3>
+              <div id="resume-keywords-box" class="keyword-tag-container">
+                <!-- Keywords badges go here -->
+              </div>
+            </div>
+
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="2" x2="22" y2="6"/><path d="M7.5 10.5L19 19c.6.6.6 1.6 0 2.2l-1.3 1.3c-.6.6-1.6.6-2.2 0L7 14Z"/><path d="M11.5 6.5L3 15c-.6.6-.6 1.6 0 2.2l1.3 1.3c.6.6 1.6.6 2.2 0L15 10Z"/></svg>
+                Optimization Suggestions
+              </h3>
+              <ul id="resume-suggestions-list" class="suggestion-list">
+                <!-- Suggestions insert dynamically -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------- VIEW 3: COMPANY TRUST --------------------- -->
+      <section id="trust-view" class="tab-panel">
+        <div class="card">
+          <!-- Disclaimer Alert -->
+          <div class="disclaimer-banner" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); color: var(--color-danger); padding: 1rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0; margin-top: 0.1rem;">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <p style="font-size: 0.85rem; font-weight: 500; line-height: 1.4;">
+              <strong>Disclaimer:</strong> This analysis is based on AI reasoning and search indicators. It is NOT verified business registry or official WHOIS domain data. Always independently confirm company legitimacy before sharing private details or making payments.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="trust-company-name" class="form-label">Company Name *</label>
+            <input type="text" id="trust-company-name" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem;" placeholder="e.g., Google, Stripe, Remote Assistant LLC...">
+          </div>
+          <div class="form-group">
+            <label for="trust-website-url" class="form-label">Website URL (Optional)</label>
+            <input type="text" id="trust-website-url" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem;" placeholder="e.g., www.google.com, stripe-jobs-portal.net...">
+          </div>
+          <div class="form-group">
+            <label for="trust-job-text" class="form-label">Job Posting / Recruiter Text (Optional)</label>
+            <textarea id="trust-job-text" class="textarea-input" style="min-height: 100px;" placeholder="Paste the job posting description or email body for style and keyword pattern verification..."></textarea>
+          </div>
+          <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+            <button id="btn-analyze-trust" class="btn btn-primary" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0;">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                <path d="M2 12h20"/>
+              </svg>
+              Verify Company Trust
+            </button>
+            <button id="btn-clear-trust" class="btn" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: var(--text-primary);">Clear</button>
+          </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="trust-loading" class="card loading-overlay" style="display: none; margin-top: 2rem;">
+          <div class="spinner-wrapper">
+            <div class="spinner"></div>
+            <div class="spinner-inner"></div>
+          </div>
+          <div class="loading-text">Conducting Company Trust Analysis</div>
+          <div id="trust-loading-subtext" class="loading-subtext">Gemini is searching public records and cross-referencing name/domain formats...</div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="trust-results" class="results-grid" style="display: none; margin-top: 2rem;">
+          <!-- Trust Score Gauge -->
+          <div class="card risk-indicator-card">
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg" viewBox="0 0 100 100">
+                <circle class="gauge-bg" cx="50" cy="50" r="40"></circle>
+                <circle id="trust-gauge-fill" class="gauge-fill" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+              </svg>
+              <div class="gauge-text">
+                <span id="trust-score-num" class="gauge-number">0</span>
+                <span class="gauge-label">Trust Score</span>
+              </div>
+            </div>
+            <span id="trust-level-badge" class="badge-level">Unknown</span>
+            
+            <div id="grounding-badge-container" style="margin-top: 1.5rem;">
+              <!-- Will insert search active badge here -->
+            </div>
+          </div>
+
+          <!-- Detail Lists -->
+          <div class="card details-card">
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Legitimacy Signals Evaluated
+              </h3>
+              <ul id="trust-signals-list" class="ats-list">
+                <!-- Dynamic signals checked -->
+              </ul>
+            </div>
+
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Identified Caveats & Risks
+              </h3>
+              <ul id="trust-caveats-list" class="flag-list">
+                <!-- Dynamic caveats -->
+              </ul>
+            </div>
+
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                AI Reasoning Summary & Advice
+              </h3>
+              <div id="trust-recommendation-box" class="recommendation-text">
+                <!-- Recommendation -->
+              </div>
+            </div>
+
+            <div id="citations-section" class="section-block" style="display: none;">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Google Search Citations (Web Evidence)
+              </h3>
+              <div id="trust-citations-list" class="keyword-tag-container" style="gap: 0.75rem;">
+                <!-- Citation badges go here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------- VIEW 4: CAREER ROADMAP --------------------- -->
+      <section id="roadmap-view" class="tab-panel">
+        <div class="card">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+            <div class="form-group">
+              <label for="roadmap-skill-level" class="form-label">Current Experience Level</label>
+              <select id="roadmap-skill-level" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem; background: rgba(15,23,42,0.6);">
+                <option value="beginner">Beginner (No background / Entry)</option>
+                <option value="intermediate">Intermediate (Some foundation / Student)</option>
+                <option value="advanced">Advanced (Transitioning / Proficient)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="roadmap-target-role" class="form-label">Target Role *</label>
+              <input type="text" id="roadmap-target-role" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem;" placeholder="e.g., Frontend React Developer, Data Analyst...">
+            </div>
+            <div class="form-group">
+              <label for="roadmap-timeline-months" class="form-label">Timeline duration (months)</label>
+              <input type="number" id="roadmap-timeline-months" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem;" min="1" max="12" value="3">
+            </div>
+          </div>
+
+          <div id="roadmap-resume-badge" class="card stat-card" style="margin-top: 1rem; display: none; background: rgba(0,242,254,0.03); border: 1px solid rgba(0,242,254,0.1); padding: 0.75rem 1.25rem;">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--primary)" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span style="font-size: 0.85rem; color: var(--text-secondary);"><strong>Resume Sync Active</strong>: Extracted profile parameters will be factored in automatically.</span>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button id="btn-generate-roadmap" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0;">
+                <circle cx="6" cy="19" r="3" />
+                <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+                <circle cx="18" cy="5" r="3" />
+              </svg>
+              Build Study Roadmap
+            </button>
+            <button id="btn-clear-roadmap" class="btn" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: var(--text-primary);">Clear</button>
+          </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="roadmap-loading" class="card loading-overlay" style="display: none; margin-top: 2rem;">
+          <div class="spinner-wrapper">
+            <div class="spinner"></div>
+            <div class="spinner-inner"></div>
+          </div>
+          <div class="loading-text">Constructing Personalized Roadmap</div>
+          <div class="loading-subtext">Gemini is structuring a curriculum, tasks list, and resources for your target role...</div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="roadmap-results" style="display: none; margin-top: 2.5rem;">
+          <div class="card" style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">Major Roadmap Milestones</h3>
+            <ul id="roadmap-milestones-list" class="ats-list" style="gap: 1rem;">
+              <!-- Milestones -->
+            </ul>
+          </div>
+
+          <h3 style="margin-bottom: 1.5rem; font-family: var(--font-header);">Month-by-Month Stepper</h3>
+          <div id="roadmap-timeline-container" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- Stepper cards will load dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------- VIEW 5: INTERNSHIP MATCH --------------------- -->
+      <section id="match-view" class="tab-panel">
+        <div class="card">
+          <div class="form-group">
+            <label for="match-job-desc" class="form-label">Paste Internship/Job Description *</label>
+            <textarea id="match-job-desc" class="textarea-input" placeholder="Paste the job description or requirement listing details here..."></textarea>
+          </div>
+
+          <!-- Profile Input Toggle -->
+          <div id="match-profile-status" style="margin-bottom: 1.5rem;">
+            <div id="match-profile-active" class="card stat-card" style="display: none; background: rgba(16,185,129,0.03); border: 1px solid rgba(16,185,129,0.1); padding: 0.75rem 1.25rem;">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--color-safe)" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span style="font-size: 0.85rem; color: var(--text-secondary);"><strong>Resume Sync Active</strong>: Matching will use your parsed resume text context automatically.</span>
+            </div>
+            
+            <div id="match-profile-manual" class="form-group" style="margin-top: 1rem;">
+              <label for="match-skills-input" class="form-label">Paste your Skills / Experience profile (No resume on file)</label>
+              <textarea id="match-skills-input" class="textarea-input" style="min-height: 80px;" placeholder="e.g., JavaScript developer, React, Node.js, Git, HTML/CSS, basic MySQL, 1 team project..."></textarea>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem;">
+            <button id="btn-calculate-match" class="btn btn-primary" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0;">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+              Calculate Fit Score
+            </button>
+            <button id="btn-clear-match" class="btn" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: var(--text-primary);">Clear</button>
+          </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="match-loading" class="card loading-overlay" style="display: none; margin-top: 2rem;">
+          <div class="spinner-wrapper">
+            <div class="spinner"></div>
+            <div class="spinner-inner"></div>
+          </div>
+          <div class="loading-text">Computing Job Fit Score</div>
+          <div class="loading-subtext">Gemini is checking parser requirements and comparing overlaps in technical frameworks...</div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="match-results" class="results-grid" style="display: none; margin-top: 2rem;">
+          <!-- Score card -->
+          <div class="card risk-indicator-card">
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg" viewBox="0 0 100 100">
+                <circle class="gauge-bg" cx="50" cy="50" r="40"></circle>
+                <circle id="match-gauge-fill" class="gauge-fill" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+              </svg>
+              <div class="gauge-text">
+                <span id="match-score-num" class="gauge-number">0</span>
+                <span class="gauge-label">Match Score</span>
+              </div>
+            </div>
+            <span id="match-level-badge" class="badge-level">Unknown</span>
+          </div>
+
+          <!-- Detail Lists -->
+          <div class="card details-card">
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+                Matched Skills / Strengths
+              </h3>
+              <div id="match-matched-skills-box" class="keyword-tag-container">
+                <!-- Matches -->
+              </div>
+            </div>
+
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                Identified Skill Gaps
+              </h3>
+              <div id="match-skill-gaps-box" class="keyword-tag-container" style="gap: 0.5rem;">
+                <!-- Gaps -->
+              </div>
+            </div>
+
+            <div class="section-block">
+              <h3>
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                Match Advice & Next Steps
+              </h3>
+              <div id="match-recommendation-box" class="recommendation-text">
+                <!-- Recommendation details -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------- VIEW 6: INTERVIEW PREP --------------------- -->
+      <section id="interview-view" class="tab-panel">
+        <!-- Sub-Tabs Selection Bar -->
+        <div class="sub-tabs-container" style="display: flex; gap: 1.5rem; margin-bottom: 2rem; border-bottom: 1.5px solid var(--border-light); padding-bottom: 0.75rem;">
+          <button id="subtab-btn-sandbox" class="subtab-btn active" style="background: none; border: none; font-size: 0.95rem; font-weight: 700; cursor: pointer; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; transition: var(--transition); font-family: var(--font-header);">
+            Practice Q&A Sandbox
+          </button>
+          <button id="subtab-btn-simulator" class="subtab-btn" style="background: none; border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; color: var(--text-secondary); padding-bottom: 0.5rem; transition: var(--transition); font-family: var(--font-header); display: inline-flex; align-items: center; gap: 0.35rem;">
+            Interactive Mock Simulator 🎙️
+          </button>
+        </div>
+
+        <!-- ================= SUBTAB 1: PRACTICE SANDBOX ================= -->
+        <div id="interview-sandbox-panel" class="subtab-panel-container">
+          <div class="card">
+            <div class="form-group">
+              <label for="interview-target-role" class="form-label">Target Role *</label>
+              <input type="text" id="interview-target-role" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem;" placeholder="e.g., Full Stack Engineer, Junior product Designer...">
+            </div>
+            <div class="form-group">
+              <label for="interview-job-desc" class="form-label">Job / Internship Description (Optional)</label>
+              <textarea id="interview-job-desc" class="textarea-input" style="min-height: 100px;" placeholder="Paste the job description details here to customize the interview questions to the specific role requirements..."></textarea>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+              <button id="btn-generate-interview" class="btn btn-primary" disabled>
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0;">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                Generate Practice Questions
+              </button>
+              <button id="btn-clear-interview" class="btn" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); color: var(--text-primary);">Clear</button>
+            </div>
+          </div>
+
+          <!-- Loading Overlay -->
+          <div id="interview-loading" class="card loading-overlay" style="display: none; margin-top: 2rem;">
+            <div class="spinner-wrapper">
+              <div class="spinner"></div>
+              <div class="spinner-inner"></div>
+            </div>
+            <div class="loading-text">Generating Customized Questions</div>
+            <div class="loading-subtext">Gemini is structuring behavioral and technical prep cues for your target role...</div>
+          </div>
+
+          <!-- Results Section -->
+          <div id="interview-results" class="results-grid" style="display: none; margin-top: 2.5rem; grid-template-columns: 360px 1fr;">
+            <!-- Prep Roadmap Check List -->
+            <div class="card" style="align-self: start;">
+              <h3 style="margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">Preparation Tasks</h3>
+              <ul id="interview-prep-roadmap" class="ats-list" style="flex-direction: column; gap: 0.85rem;">
+                <!-- Steps -->
+              </ul>
+            </div>
+
+            <!-- Q&A expandable list -->
+            <div class="card">
+              <h3 style="margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">Customized Questions</h3>
+              <div id="interview-questions-accordion" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Question elements inserted dynamically -->
+              </div>
+              
+              <!-- Dynamic Grading Sandbox Workspace -->
+              <div id="practice-sandbox-container" style="display: none; margin-top: 2.5rem; border-top: 1.5px dashed var(--border-light); padding-top: 2rem;">
+                <h3 style="margin-bottom: 0.5rem; font-family: var(--font-header);">Practice Sandbox Workspace</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.25rem;" id="sandbox-active-question-title">Question: </p>
+                
+                <div class="form-group">
+                  <textarea id="interview-answer-input" class="textarea-input" style="min-height: 120px;" placeholder="Type your practice response to the question. Use STAR method for behavioral questions..."></textarea>
+                </div>
+                <button id="btn-submit-answer" class="btn btn-primary" style="margin-top: 0.25rem;">
+                  Evaluate Answer
+                </button>
+                
+                <!-- Grading Loading State -->
+                <div id="interview-grade-loading" class="card loading-overlay" style="display: none; padding: 2rem; margin-top: 1.5rem; gap: 1rem;">
+                  <div class="spinner-wrapper" style="width: 50px; height: 50px;">
+                    <div class="spinner"></div>
+                  </div>
+                  <div class="loading-text" style="font-size: 1rem;">Gemini is grading your answer...</div>
+                </div>
+
+                <!-- Sandbox Feedback Output -->
+                <div id="interview-feedback-card" class="card" style="display: none; margin-top: 1.5rem; border-color: var(--border-glow); background: rgba(0, 242, 254, 0.02);">
+                  <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+                    <h4 style="font-family: var(--font-header); font-weight: 700;">Evaluation Results</h4>
+                    <span id="sandbox-score-badge" class="badge-level level-medium" style="padding: 0.25rem 1rem;">Score: 0%</span>
+                  </div>
+                  
+                  <div class="section-block" style="gap: 0.5rem; margin-bottom: 1.25rem;">
+                    <h5 style="color: var(--color-safe); font-size: 0.9rem; font-weight: 600;">Key Strengths:</h5>
+                    <ul id="sandbox-strengths-list" class="ats-list" style="font-size: 0.85rem; color: var(--text-secondary); gap: 0.25rem;"></ul>
+                  </div>
+                  
+                  <div class="section-block" style="gap: 0.5rem; margin-bottom: 1.25rem;">
+                    <h5 style="color: var(--color-warning); font-size: 0.9rem; font-weight: 600;">Areas for Improvement:</h5>
+                    <ul id="sandbox-improvements-list" class="flag-list" style="font-size: 0.85rem; color: var(--text-secondary); gap: 0.25rem;"></ul>
+                  </div>
+                  
+                  <div class="section-block" style="gap: 0.5rem;">
+                    <h5 style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">High-Impact Model Answer Example:</h5>
+                    <div id="sandbox-model-answer" class="recommendation-text" style="font-size: 0.85rem; font-style: italic; color: var(--text-primary);"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SUBTAB 2: MOCK SIMULATOR ================= -->
+        <div id="interview-simulator-panel" class="subtab-panel-container" style="display: none;">
+          <!-- Setup Config Card -->
+          <div id="simulator-setup-card" class="card">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 1.25rem;">
+              <div class="form-group">
+                <label for="sim-target-role" class="form-label">Target Role *</label>
+                <input type="text" id="sim-target-role" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem;" placeholder="e.g., Software Engineer Intern, Marketing Analyst...">
+              </div>
+              <div class="form-group">
+                <label for="sim-skill-level" class="form-label">Current Experience Level</label>
+                <select id="sim-skill-level" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem; background: rgba(15,23,42,0.6);">
+                  <option value="beginner">Entry Level / Student</option>
+                  <option value="intermediate">Junior developer / 1-2 years experience</option>
+                  <option value="advanced">Experienced Transitioning candidate</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="sim-focus-type" class="form-label">Interview Focus Area</label>
+                <select id="sim-focus-type" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem; background: rgba(15,23,42,0.6);">
+                  <option value="mixed">Mixed (Technical & Behavioral)</option>
+                  <option value="technical">Technical Focus</option>
+                  <option value="behavioral">Behavioral Focus (HR Rounds)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="sim-job-desc" class="form-label">Job Description Context (Optional)</label>
+              <textarea id="sim-job-desc" class="textarea-input" style="min-height: 80px;" placeholder="Paste the job requirements to tailor the mock interview questions directly to this posting..."></textarea>
+            </div>
+
+            <!-- Voice Assistant Audio settings -->
+            <div style="display: flex; gap: 2rem; margin-top: 1.25rem; flex-wrap: wrap; border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
+              <label style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--text-primary); cursor: pointer; user-select: none;">
+                <input type="checkbox" id="sim-voice-tts-toggle" style="accent-color: var(--primary); width: 17px; height: 17px;">
+                <span>Narrate Questions Aloud (Text-to-Speech)</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--text-primary); cursor: pointer; user-select: none;">
+                <input type="checkbox" id="sim-voice-stt-toggle" style="accent-color: var(--primary); width: 17px; height: 17px;">
+                <span>Speak Answers via Mic (Voice Input typing) 🎤</span>
+              </label>
+            </div>
+
+            <button id="btn-start-simulation" class="btn btn-primary" style="margin-top: 1.75rem;" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" style="flex-shrink: 0;">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              Begin Mock Interview
+            </button>
+          </div>
+
+          <!-- Loading state overlay -->
+          <div id="simulator-loading" class="card loading-overlay" style="display: none; margin-top: 2rem;">
+            <div class="spinner-wrapper">
+              <div class="spinner"></div>
+              <div class="spinner-inner"></div>
+            </div>
+            <div id="sim-loading-text" class="loading-text">Preparing Mock Interview Session</div>
+            <div class="loading-subtext">Gemini is calibrating questions and setting up the chat simulator loop...</div>
+          </div>
+
+          <!-- Active Assessment Chat Card -->
+          <div id="simulator-active-card" style="display: none; margin-top: 2rem;">
+            <div class="card" style="padding: 1.5rem; display: flex; flex-direction: column; height: 560px;">
+              <!-- Session Header -->
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+                <h4 style="font-family: var(--font-header); font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: var(--primary); display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: var(--glow-shadow);"></span>
+                  Interviewer Assessment Session
+                </h4>
+                <span id="sim-turn-indicator" class="history-badge level-low">Question 1 of 4</span>
+              </div>
+              
+              <!-- Chat transcript Stream -->
+              <div id="sim-chat-stream" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1.25rem; padding: 1.25rem; margin-bottom: 1.25rem; border: 1px solid var(--border-light); border-radius: 12px; background: rgba(10,15,30,0.5); scroll-behavior: smooth;">
+                <!-- Chat bubbles go here dynamically -->
+              </div>
+              
+              <!-- Speech Recognition Wave Visualizer -->
+              <div id="sim-voice-visualizer" style="display: none; align-items: center; justify-content: center; gap: 0.35rem; margin-bottom: 1rem; height: 28px; background: rgba(0, 242, 254, 0.03); border: 1.5px dashed rgba(0, 242, 254, 0.2); border-radius: 8px;">
+                <span style="color: var(--primary); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;">🎤 VOICE TYPING EN ROUTE - SPEAK INTO MICROPHONE NOW</span>
+                <div class="voice-bar"></div>
+                <div class="voice-bar" style="animation-delay: 0.1s;"></div>
+                <div class="voice-bar" style="animation-delay: 0.25s;"></div>
+                <div class="voice-bar" style="animation-delay: 0.15s;"></div>
+                <div class="voice-bar" style="animation-delay: 0.3s;"></div>
+              </div>
+
+              <!-- Input form row -->
+              <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <textarea id="sim-chat-input" class="textarea-input" style="min-height: auto; height: 48px; padding: 0.75rem 1rem; resize: none; flex: 1; font-size: 0.92rem; overflow-y: hidden;" placeholder="Type your response to the interviewer's question..."></textarea>
+                <button id="btn-sim-voice-toggle" class="btn" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); padding: 0; height: 48px; width: 48px; color: var(--text-primary); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 8px;" title="Toggle Speech-to-Text Voice Typing">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                </button>
+                <button id="btn-sim-send" class="btn btn-primary" style="height: 48px; padding: 0 1.5rem; font-weight: 700; flex-shrink: 0; border-radius: 8px;">
+                  Send response
+                </button>
+              </div>
+
+              <!-- Action Bar Footer -->
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+                <button id="btn-sim-conclude" class="btn" style="color: var(--color-danger); border-color: rgba(239,68,68,0.25); background: rgba(239,68,68,0.04); font-size: 0.85rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 6px;">Conclude & Grade Session</button>
+                <span style="font-size: 0.78rem; color: var(--text-secondary);">Formulate behavioral answers using Situation, Task, Action, Result parameters.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Final Report Card Screen -->
+          <div id="simulator-report-card" style="display: none; margin-top: 2.5rem;">
+            <div class="results-grid">
+              <!-- Circular performance score -->
+              <div class="card risk-indicator-card">
+                <div class="gauge-wrapper">
+                  <svg class="gauge-svg" viewBox="0 0 100 100">
+                    <circle class="gauge-bg" cx="50" cy="50" r="40"></circle>
+                    <circle id="sim-report-gauge-fill" class="gauge-fill" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+                  </svg>
+                  <div class="gauge-text">
+                    <span id="sim-report-overall-score" class="gauge-number">0</span>
+                    <span class="gauge-label">Overall Fit</span>
+                  </div>
+                </div>
+                <span id="sim-report-fit-badge" class="badge-level" style="margin-top: 1rem;">Strong Fit</span>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem; width: 100%; border-top: 1px solid var(--border-light); padding-top: 1rem; justify-content: space-around;">
+                  <div style="text-align: center;">
+                    <p style="font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase;">Technical</p>
+                    <p id="sim-report-tech-grade" style="font-size: 1.5rem; font-weight: 800; color: var(--secondary);">A</p>
+                  </div>
+                  <div style="text-align: center; border-left: 1px solid var(--border-light); padding-left: 1rem;">
+                    <p style="font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase;">Communication</p>
+                    <p id="sim-report-comm-grade" style="font-size: 1.5rem; font-weight: 800; color: var(--color-safe);">B+</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- General report stats -->
+              <div class="card details-card">
+                <div class="section-block">
+                  <h3>
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Identified Strengths
+                  </h3>
+                  <ul id="sim-report-strengths" class="ats-list">
+                    <!-- Strengths list items -->
+                  </ul>
+                </div>
+                
+                <div class="section-block">
+                  <h3>
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Areas for Growth
+                  </h3>
+                  <ul id="sim-report-improvements" class="flag-list">
+                    <!-- Improvements list items -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Question breakdown list -->
+            <div class="card" style="margin-top: 2rem;">
+              <h3 style="font-family: var(--font-header); font-weight: 800; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">Question-by-Question Evaluation Review</h3>
+              
+              <div id="sim-report-qa-review-container" style="display: flex; flex-direction: column; gap: 2rem;">
+                <!-- QA reviews insert dynamically -->
+              </div>
+
+              <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-light); padding-top: 1.5rem; text-align: center;">
+                <button id="btn-sim-restart" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                  Restart Mock Simulator Session
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 8: COVER LETTER GENERATOR ================= -->
+      <section id="coverletter-view" class="tab-panel">
+        <div class="card">
+          <h3 style="font-family: var(--font-header); font-weight: 800; margin-bottom: 1.25rem;">Application Cover Letter & Cold Message Generator</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.45;">
+            Generate tailored cover letters and networking cold outreach messages based on your background profile and the target job description.
+          </p>
+
+          <form id="coverletter-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div class="form-group">
+              <label for="coverletter-tone" class="form-label">Tone & Document Format *</label>
+              <select id="coverletter-tone" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem; background: rgba(15,23,42,0.6);">
+                <option value="formal">Formal Cover Letter (Standard Business Format)</option>
+                <option value="short">Short Application Message (For cold emails, LinkedIn DMs)</option>
+              </select>
+            </div>
+
+            <!-- Resume status badge context -->
+            <div id="coverletter-resume-badge" class="badge-level level-low" style="padding: 0.75rem 1rem; margin-bottom: 0.25rem; font-size: 0.82rem; align-self: flex-start; display: none;">
+              ⚡ Synced Resume background context loaded from active session!
+            </div>
+
+            <!-- Background input fallback -->
+            <div class="form-group" id="coverletter-background-group">
+              <label for="coverletter-background" class="form-label">Your Background / Experience Context *</label>
+              <textarea id="coverletter-background" class="textarea-input" style="min-height: 120px;" placeholder="Outline your coding projects, technical skills, university education, or paste your raw resume text here..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="coverletter-job-desc" class="form-label">Job / Internship Posting Text *</label>
+              <textarea id="coverletter-job-desc" class="textarea-input" style="min-height: 140px;" placeholder="Paste the target job description, requirements, or responsibilities here..."></textarea>
+            </div>
+
+            <button type="submit" id="btn-generate-coverletter" class="btn btn-primary" style="align-self: flex-start; font-weight: 700; width: 220px; height: 42px; justify-content: center;">
+              <span>Generate Application Draft</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Processing Loader -->
+        <div id="coverletter-loading" class="card loading-card" style="display: none; align-items: center; justify-content: center; padding: 3rem 0; flex-direction: column; gap: 1rem;">
+          <div class="spinner"></div>
+          <div class="loading-text" style="font-size: 1rem;">Gemini is writing draft...</div>
+        </div>
+
+        <!-- Result Content -->
+        <div id="coverletter-results-card" class="card" style="display: none; margin-top: 1.5rem;">
+          <h4 style="font-family: var(--font-header); font-weight: 800; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; margin-bottom: 1.25rem; color: var(--primary);">Generated Outreach Draft</h4>
+          
+          <div class="form-group" style="margin-bottom: 0.75rem;">
+            <textarea id="coverletter-draft-result" class="textarea-input" style="min-height: 350px; font-family: monospace; background: rgba(15,23,42,0.7); color: var(--text-primary); font-size: 0.88rem; line-height: 1.55;"></textarea>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+            <span style="color: var(--color-warning); font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.35rem;">
+              ⚠️ AI-generated draft — personalize before sending. Do not submit unedited.
+            </span>
+            <button id="btn-copy-coverletter" class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy Draft Text
+            </button>
+          </div>
+
+          <div class="section-block" style="border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
+            <h5 style="font-family: var(--font-header); font-weight: 700; margin-bottom: 0.75rem; font-size: 0.95rem;">Emphasized Key Points & Rationale</h5>
+            <ul id="coverletter-highlights-list" class="ats-list" style="font-size: 0.85rem; color: var(--text-secondary); gap: 0.35rem;"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 9: LINKEDIN PROFILE OPTIMIZER ================= -->
+      <section id="profile-view" class="tab-panel">
+
+        <!-- ===== POST OPTIMIZER CARD ===== -->
+        <div class="card" style="border-color: rgba(168, 85, 247, 0.25); background: linear-gradient(135deg, rgba(139,92,246,0.04) 0%, rgba(10,15,30,0) 60%);">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <div style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;">✍️</div>
+            <div>
+              <h3 style="font-family: var(--font-header); font-weight: 800; font-size: 1.2rem; color: #a855f7;">LinkedIn Post Optimizer</h3>
+              <p style="color: var(--text-muted); font-size: 0.78rem; line-height: 1.3;">Rewrite or generate a high-converting post using the Full Post Framework (Hook → Story → Worked On → Takeaway → Next → CTA → Hashtags)</p>
+            </div>
+          </div>
+
+          <form id="post-optimizer-form" style="display: flex; flex-direction: column; gap: 1.15rem; margin-top: 1.25rem;">
+
+            <div class="form-group">
+              <label for="post-draft-input" class="form-label" style="color: #a855f7;">
+                Existing Post Draft
+                <span style="font-weight: 400; color: var(--text-muted); font-size: 0.75rem; margin-left: 0.35rem;">(optional — paste draft to rewrite, or leave blank to create from topic)</span>
+              </label>
+              <textarea id="post-draft-input" class="textarea-input" style="min-height: 130px; border-color: rgba(139, 92, 246, 0.2);" placeholder="Paste your existing LinkedIn post draft here to improve it, or leave blank and fill the topic/context field below..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="post-context-input" class="form-label">
+                Topic / Context
+                <span style="font-weight: 400; color: var(--text-muted); font-size: 0.75rem; margin-left: 0.35rem;">(required if no draft above)</span>
+              </label>
+              <textarea id="post-context-input" class="textarea-input" style="min-height: 90px; border-color: rgba(139, 92, 246, 0.2);" placeholder="e.g. 'I built a Flask API that scrapes job postings. Used Python, BeautifulSoup, and deployed on Render. Learnt about rate limiting and async requests.'"></textarea>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+              <button type="submit" id="btn-optimize-post" class="btn btn-primary" style="font-weight: 700; padding: 0.65rem 1.75rem; background: linear-gradient(135deg, #8b5cf6, #6d28d9); border-color: #8b5cf6; min-width: 200px; justify-content: center;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 0.35rem;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                Optimize / Generate Post
+              </button>
+              <span style="font-size: 0.78rem; color: var(--text-muted);">⚡ Powered by Gemini AI · Full Post Framework</span>
+            </div>
+          </form>
+
+          <!-- Post Optimizer Loading -->
+          <div id="post-optimizer-loading" style="display: none; flex-direction: column; align-items: center; gap: 1rem; padding: 2.5rem 0;">
+            <div class="spinner" style="border-top-color: #8b5cf6;"></div>
+            <div class="loading-text" style="font-size: 0.95rem;">Gemini is crafting your post...</div>
+          </div>
+
+          <!-- Post Optimizer Results -->
+          <div id="post-optimizer-results" style="display: none; margin-top: 1.5rem; border-top: 1px solid rgba(139, 92, 246, 0.15); padding-top: 1.5rem;">
+
+            <!-- Type badge + word count -->
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; flex-wrap: wrap;">
+              <span id="post-type-badge" class="badge-level" style="background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.35); color: #a855f7; padding: 0.25rem 0.85rem; font-size: 0.78rem; font-weight: 700;"></span>
+              <span id="post-word-count" style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;"></span>
+            </div>
+
+            <!-- Optimized Post Textarea -->
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label" style="color: #a855f7; font-size: 0.8rem;">✨ Optimized Post (editable)</label>
+              <textarea id="post-optimized-output" class="textarea-input" style="min-height: 300px; font-family: monospace; background: rgba(15,23,42,0.7); color: var(--text-primary); font-size: 0.88rem; line-height: 1.6; border-color: rgba(139,92,246,0.25);"></textarea>
+            </div>
+
+            <!-- Copy + disclaimer row -->
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+              <span style="color: var(--color-warning); font-size: 0.78rem; font-weight: 600;">⚠️ AI-generated — personalize with real details before posting.</span>
+              <button id="btn-copy-optimized-post" class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; font-weight: 700; background: #8b5cf6; border-color: #8b5cf6; display: inline-flex; align-items: center; gap: 0.4rem;">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy Post
+              </button>
+            </div>
+
+            <!-- Hook Analysis -->
+            <div style="background: rgba(139, 92, 246, 0.04); border: 1px solid rgba(139,92,246,0.15); border-radius: 10px; padding: 1rem; margin-bottom: 1rem;">
+              <h5 style="color: #a855f7; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem;">🪝 Hook Analysis</h5>
+              <p id="post-hook-analysis" style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;"></p>
+            </div>
+
+            <!-- Improvements Made (only shown if a draft was provided) -->
+            <div id="post-improvements-block" style="background: rgba(16, 185, 129, 0.03); border: 1px solid rgba(16, 185, 129, 0.12); border-radius: 10px; padding: 1rem;">
+              <h5 style="color: var(--color-safe); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.65rem;">✅ Improvements Made</h5>
+              <ul id="post-improvements-list" class="flag-list" style="font-size: 0.85rem; color: var(--text-secondary); gap: 0.4rem;"></ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div style="display: flex; align-items: center; gap: 1rem; margin: 0.5rem 0; opacity: 0.4;">
+          <div style="flex: 1; height: 1px; background: var(--border-light);"></div>
+          <span style="font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.08em;">Profile Headline & Bio Audit</span>
+          <div style="flex: 1; height: 1px; background: var(--border-light);"></div>
+        </div>
+
+        <!-- ===== PROFILE ANALYZER CARD ===== -->
+        <div class="card">
+          <h3 style="font-family: var(--font-header); font-weight: 800; margin-bottom: 0.5rem;">LinkedIn Professional Profile Optimizer</h3>
+          <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 1.25rem; line-height: 1.4; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; font-style: italic;">
+            "A clear, professional profile also makes it easier for you to verify who's a real recruiter vs. a scam account reaching out to you."
+          </p>
+
+          <form id="profile-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div class="form-group">
+              <label for="profile-headline" class="form-label">Current LinkedIn Headline</label>
+              <input type="text" id="profile-headline" class="textarea-input" style="min-height: auto; padding: 0.85rem 1rem;" placeholder="e.g., Software engineering student | looking for internships">
+            </div>
+
+            <div class="form-group">
+              <label for="profile-bio" class="form-label">Current About / Bio Summary Section</label>
+              <textarea id="profile-bio" class="textarea-input" style="min-height: 140px;" placeholder="Pasted About details outlining your projects, motivations, or university journey..."></textarea>
+            </div>
+
+            <button type="submit" id="btn-optimize-profile" class="btn btn-primary" style="align-self: flex-start; font-weight: 700; width: 220px; height: 42px; justify-content: center;">
+              <span>Optimize Professional Profile</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Processing Loader -->
+        <div id="profile-loading" class="card loading-card" style="display: none; align-items: center; justify-content: center; padding: 3rem 0; flex-direction: column; gap: 1rem;">
+          <div class="spinner"></div>
+          <div class="loading-text" style="font-size: 1rem;">Gemini is auditing profile...</div>
+        </div>
+
+        <!-- Scorecard Results Grid -->
+        <div id="profile-results-container" style="display: none; margin-top: 1.5rem;">
+          <div class="results-grid">
+            <!-- Circular Average Score -->
+            <div class="card risk-indicator-card">
+              <div class="gauge-wrapper">
+                <svg class="gauge-svg" viewBox="0 0 100 100">
+                  <circle class="gauge-bg" cx="50" cy="50" r="40"></circle>
+                  <circle id="profile-overall-gauge-fill" class="gauge-fill" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+                </svg>
+                <div class="gauge-text">
+                  <span id="profile-overall-score" class="gauge-number">0</span>
+                  <span class="gauge-label">Avg Quality</span>
+                </div>
+              </div>
+              <span id="profile-grade-badge" class="badge-level" style="margin-top: 1rem;">Evaluating</span>
+            </div>
+
+            <!-- Recruiter Appeal Ratings Breakdown Bars -->
+            <div class="card details-card" style="display: flex; flex-direction: column; gap: 1.15rem;">
+              <h4 style="font-family: var(--font-header); font-weight: 700; font-size: 1.05rem; margin-bottom: 0.25rem;">2026 Recruiter Screening Ratings</h4>
+              
+              <div class="dimension-score-row" style="display: flex; flex-direction: column; gap: 0.35rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                  <span>Recruiter Appeal</span>
+                  <span id="profile-rate-appeal">0%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-light);">
+                  <div id="profile-bar-appeal" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.8s ease;"></div>
+                </div>
+              </div>
+
+              <div class="dimension-score-row" style="display: flex; flex-direction: column; gap: 0.35rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                  <span>Clarity & Focus</span>
+                  <span id="profile-rate-clarity">0%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-light);">
+                  <div id="profile-bar-clarity" style="width: 0%; height: 100%; background: var(--secondary); transition: width 0.8s ease;"></div>
+                </div>
+              </div>
+
+              <div class="dimension-score-row" style="display: flex; flex-direction: column; gap: 0.35rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                  <span>Professional Branding</span>
+                  <span id="profile-rate-branding">0%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-light);">
+                  <div id="profile-bar-branding" style="width: 0%; height: 100%; background: var(--color-safe); transition: width 0.8s ease;"></div>
+                </div>
+              </div>
+
+              <div class="dimension-score-row" style="display: flex; flex-direction: column; gap: 0.35rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                  <span>Keyword Optimization</span>
+                  <span id="profile-rate-keywords">0%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-light);">
+                  <div id="profile-bar-keywords" style="width: 0%; height: 100%; background: var(--color-warning); transition: width 0.8s ease;"></div>
+                </div>
+              </div>
+
+              <div class="dimension-score-row" style="display: flex; flex-direction: column; gap: 0.35rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                  <span>Internship Readiness</span>
+                  <span id="profile-rate-readiness">0%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-light);">
+                  <div id="profile-bar-readiness" style="width: 0%; height: 100%; background: #a855f7; transition: width 0.8s ease;"></div>
+                </div>
+              </div>
+
+              <div class="dimension-score-row" style="display: flex; flex-direction: column; gap: 0.35rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                  <span>Interview Worthiness</span>
+                  <span id="profile-rate-worthiness">0%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; border: 1px solid var(--border-light);">
+                  <div id="profile-bar-worthiness" style="width: 0%; height: 100%; background: #14b8a6; transition: width 0.8s ease;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Headline Critique & Suggestions -->
+          <div class="card" style="margin-top: 1.5rem; border-color: rgba(0, 242, 254, 0.15); background: rgba(0, 242, 254, 0.01);">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+              <h4 style="font-family: var(--font-header); font-weight: 800; font-size: 1.1rem; color: var(--primary);">Headline Critique & Optimizations</h4>
+              <span id="profile-headline-grade" class="badge-level level-low" style="padding: 0.25rem 0.85rem;">Score: 0%</span>
+            </div>
+            
+            <div class="section-block" style="margin-bottom: 1.25rem;">
+              <h5 style="color: var(--color-warning); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">Weaknesses, Red Flags, & Opportunities:</h5>
+              <ul id="profile-headline-feedback" class="flag-list" style="font-size: 0.85rem; color: var(--text-secondary);"></ul>
+            </div>
+
+            <div class="section-block">
+              <h5 style="color: var(--color-safe); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">Recommended Headline Rewrite Options:</h5>
+              <div id="profile-headline-rewrites" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+            </div>
+          </div>
+
+          <!-- Bio Critique & Suggestions -->
+          <div class="card" style="margin-top: 1.5rem; border-color: rgba(0, 242, 254, 0.15); background: rgba(0, 242, 254, 0.01);">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+              <h4 style="font-family: var(--font-header); font-weight: 800; font-size: 1.1rem; color: var(--primary);">About Summary Critique & Optimizations</h4>
+              <span id="profile-bio-grade" class="badge-level level-low" style="padding: 0.25rem 0.85rem;">Score: 0%</span>
+            </div>
+
+            <div class="section-block" style="margin-bottom: 1.25rem;">
+              <h5 style="color: var(--color-warning); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">Weaknesses, Red Flags, & Opportunities:</h5>
+              <ul id="profile-bio-feedback" class="flag-list" style="font-size: 0.85rem; color: var(--text-secondary);"></ul>
+            </div>
+
+            <div class="section-block">
+              <h5 style="color: var(--color-safe); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">Recommended About / Bio Rewrites:</h5>
+              <div id="profile-bio-rewrites" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+            </div>
+          </div>
+
+          <!-- Generated Scannable LinkedIn Post -->
+          <div class="card" style="margin-top: 1.5rem; border-color: var(--border-glow); background: rgba(139, 92, 246, 0.02);">
+            <h4 style="font-family: var(--font-header); font-weight: 800; font-size: 1.15rem; color: #a855f7; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; margin-bottom: 1rem;">Suggested Recruiter-Targeted LinkedIn Post Draft</h4>
+            
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+              <textarea id="profile-post-draft" class="textarea-input" style="min-height: 250px; font-family: monospace; background: rgba(15,23,42,0.7); color: var(--text-primary); font-size: 0.88rem; line-height: 1.55;"></textarea>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+              <span style="color: var(--text-muted); font-size: 0.8rem; font-style: italic;">
+                Post structured using the scannable full project story framework.
+              </span>
+              <button id="btn-copy-profile-post" class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; background: #8b5cf6; border-color: #8b5cf6;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy Post Draft
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Skill Gap Micro-Lesson Popup Modal -->
+  <div id="skill-lesson-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2500; padding: 1.5rem;">
+    <div class="card modal-card" style="max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-glow); box-shadow: 0 0 35px rgba(139, 92, 246, 0.2); animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); background: #0b1120; padding: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.85rem; margin-bottom: 1.25rem;">
+        <h3 id="lesson-skill-name" style="font-family: var(--font-header); font-weight: 800; font-size: 1.35rem; color: #8b5cf6;">Skill Micro-Lesson</h3>
+        <button id="btn-close-lesson-modal" style="background: none; border: none; color: var(--text-secondary); font-size: 1.75rem; cursor: pointer; line-height: 1; transition: var(--transition);">&times;</button>
+      </div>
+
+      <!-- Loading Inner -->
+      <div id="lesson-modal-loading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 0; gap: 1rem;">
+        <div class="spinner"></div>
+        <div style="color: var(--text-secondary); font-size: 0.9rem;">Gemini is compiling lesson...</div>
+      </div>
+
+      <!-- Content Inner -->
+      <div id="lesson-modal-content" style="display: none;">
+        <!-- Explainer -->
+        <div class="section-block" style="margin-bottom: 1.5rem;">
+          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>📖</span> Beginner Explainer
+          </h4>
+          <p id="lesson-explainer" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;"></p>
+        </div>
+
+        <!-- Exercises -->
+        <div class="section-block" style="margin-bottom: 1.5rem; border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
+          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>💻</span> Practical Practice Exercises
+          </h4>
+          <div id="lesson-exercises-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+        </div>
+
+        <!-- Resources Suggestions -->
+        <div class="section-block" style="border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
+          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>📚</span> Recommended Learning Resources
+          </h4>
+          <div id="lesson-resources-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authentication Modal Popup -->
+  <div id="auth-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 15, 30, 0.8); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2000; padding: 1.5rem;">
+    <div class="card modal-card" style="max-width: 400px; width: 100%; border: 1px solid var(--border-glow); box-shadow: 0 0 35px rgba(0, 242, 254, 0.15); animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); background: #0b1120;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.85rem; margin-bottom: 1.5rem;">
+        <h3 id="auth-modal-title" style="font-family: var(--font-header); font-weight: 800; font-size: 1.25rem;">Cloud Account Sync</h3>
+        <button id="btn-close-auth-modal" style="background: none; border: none; color: var(--text-secondary); font-size: 1.75rem; cursor: pointer; line-height: 1; transition: var(--transition);">&times;</button>
+      </div>
+
+      <!-- Modal Tab selection -->
+      <div style="display: flex; gap: 1.25rem; border-bottom: 1.5px solid var(--border-light); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+        <button id="tab-auth-login" class="tab-btn active" style="background: none; border: none; font-size: 0.92rem; font-weight: 700; cursor: pointer; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.4rem;">Login</button>
+        <button id="tab-auth-register" class="tab-btn" style="background: none; border: none; font-size: 0.92rem; font-weight: 600; cursor: pointer; color: var(--text-secondary); padding-bottom: 0.4rem;">Register</button>
+      </div>
+
+      <form id="auth-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div class="form-group">
+          <label for="auth-email" class="form-label" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing:0.02em;">Email Address</label>
+          <input type="email" id="auth-email" class="textarea-input" style="min-height: auto; padding: 0.75rem 1rem;" placeholder="e.g., student@university.edu" required>
+        </div>
+        <div class="form-group" style="margin-bottom: 0.25rem;">
+          <label for="auth-password" class="form-label" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing:0.02em;">Password</label>
+          <input type="password" id="auth-password" class="textarea-input" style="min-height: auto; padding: 0.75rem 1rem;" placeholder="At least 6 characters" required>
+        </div>
+
+        <div id="auth-error-msg" style="display: none; color: var(--color-danger); font-size: 0.82rem; background: rgba(239, 68, 68, 0.08); padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2); line-height: 1.45;">
+          Error msg goes here
+        </div>
+
+        <button type="submit" id="btn-auth-submit" class="btn btn-primary" style="justify-content: center; font-weight: 700; width: 100%; margin-top: 0.5rem; height: 42px;">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Load Firebase Compat SDK libraries -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <!-- Setup PDF.js Global Worker prior to custom scripts loading -->
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    }
+  </script>
+
+  <!-- Load Custom Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/analyzer.js"></script>
+  <script src="js/scorer.js"></script>
+  <script src="js/trust.js"></script>
+  <script src="js/roadmap.js"></script>
+  <script src="js/match.js"></script>
+  <script src="js/interview.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/lessons.js"></script>
+  <script src="js/coverletter.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,370 @@
+/**
+ * CareerShield AI — App Coordinator & Router
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Navigation elements
+  const navItems = document.querySelectorAll('.nav-links .nav-item');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  const viewTitle = document.getElementById('current-view-title');
+  const viewDesc = document.getElementById('current-view-desc');
+  const demoIndicator = document.getElementById('demo-mode-indicator');
+
+  // Page titles and descriptions map
+  const viewMeta = {
+    dashboard: {
+      title: 'Dashboard Overview',
+      desc: 'Monitor security checks and resume optimization history.'
+    },
+    analyzer: {
+      title: 'Scam & Fraud Message Analyzer',
+      desc: 'Verify job offers, recruiter emails, and messages for red flags.'
+    },
+    scorer: {
+      title: 'ATS Resume Scorer',
+      desc: 'Evaluate formatting readability, identify missing keywords, and get optimizations.'
+    },
+    trust: {
+      title: 'Company Trust Analyzer',
+      desc: 'Verify if a company matches known hiring fraud profiles and check public signals.'
+    },
+    roadmap: {
+      title: 'Career Roadmap Generator',
+      desc: 'Get a step-by-step monthly study curriculum for your target career role.'
+    },
+    match: {
+      title: 'Internship Match Score',
+      desc: 'Evaluate how well your resume matches target internship criteria.'
+    },
+    interview: {
+      title: 'Interview Preparation',
+      desc: 'Generate role-based practice questions and grade your answers in real-time.'
+    },
+    coverletter: {
+      title: 'Outreach & Cover Letter Generator',
+      desc: 'Generate scannable cold application messages or formal cover letters matching job descriptions.'
+    },
+    profile: {
+      title: 'LinkedIn Profile Optimizer',
+      desc: 'Optimize your LinkedIn headlines and About summary layouts to attract entry-level recruiters.'
+    }
+  };
+
+  // Check server status (Demo Mode vs. Production Mode)
+  async function checkServerStatus() {
+    try {
+      const response = await fetch('/api/status');
+      const data = await response.json();
+      if (data.isDemo) {
+        demoIndicator.style.display = 'flex';
+      } else {
+        demoIndicator.style.display = 'none';
+      }
+    } catch (error) {
+      console.warn('Could not contact server to get status, defaulting to showing demo warning:', error);
+      demoIndicator.style.display = 'flex';
+    }
+  }
+
+  // Switch between tabs
+  function switchTab(tabId) {
+    // 1. Remove active state from all nav buttons
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('data-tab') === tabId) {
+        item.classList.add('active');
+      }
+    });
+
+    // 2. Toggle active state for tab panels
+    tabPanels.forEach(panel => {
+      panel.classList.remove('active');
+    });
+
+    const activePanel = document.getElementById(`${tabId}-view`);
+    if (activePanel) {
+      activePanel.classList.add('active');
+    }
+
+    // 3. Update title and descriptions
+    if (viewMeta[tabId]) {
+      viewTitle.textContent = viewMeta[tabId].title;
+      viewDesc.textContent = viewMeta[tabId].desc;
+    }
+
+    // 4. Trigger panel-specific reload logic
+    if (tabId === 'dashboard') {
+      if (window.initializeDashboard) {
+        window.initializeDashboard();
+      }
+    } else if (tabId === 'roadmap') {
+      const roadmapResumeBadge = document.getElementById('roadmap-resume-badge');
+      if (roadmapResumeBadge) {
+        const hasResume = !!sessionStorage.getItem('careershield_resume_text');
+        roadmapResumeBadge.style.display = hasResume ? 'flex' : 'none';
+      }
+    } else if (tabId === 'match') {
+      const profileActive = document.getElementById('match-profile-active');
+      const profileManual = document.getElementById('match-profile-manual');
+      const hasResume = !!sessionStorage.getItem('careershield_resume_text');
+
+      if (profileActive) profileActive.style.display = hasResume ? 'flex' : 'none';
+      if (profileManual) profileManual.style.display = hasResume ? 'none' : 'block';
+      
+      // Toggle button enabled status in match panel depending on textarea input
+      const matchTextarea = document.getElementById('match-job-desc');
+      const matchBtn = document.getElementById('btn-calculate-match');
+      if (matchTextarea && matchBtn) {
+        const checkMatchInput = () => {
+          const descVal = matchTextarea.value.trim();
+          const hasManualSkills = hasResume || (document.getElementById('match-skills-input')?.value.trim().length > 5);
+          matchBtn.disabled = (descVal.length < 10 || !hasManualSkills);
+        };
+        
+        matchTextarea.addEventListener('input', checkMatchInput);
+        const manualSkillsEl = document.getElementById('match-skills-input');
+        if (manualSkillsEl) manualSkillsEl.addEventListener('input', checkMatchInput);
+        
+        checkMatchInput();
+      }
+    } else if (tabId === 'coverletter') {
+      if (window.checkCoverLetterContext) {
+        window.checkCoverLetterContext();
+      }
+    }
+  }
+
+  // Attach click listeners to sidebar navigation items
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const tabId = item.getAttribute('data-tab');
+      switchTab(tabId);
+    });
+  });
+
+  // --- PHASE 3: CLOUD AUTHENTICATION & INTERVIEW SUBTABS LIFE CYCLES ---
+  let firestoreUnsubscribe = null;
+  let authMode = 'login'; // 'login' or 'register'
+
+  // Fetch Firebase config from server
+  async function initFirebase() {
+    try {
+      const response = await fetch('/api/firebase-config');
+      const data = await response.json();
+      
+      if (data.enabled && window.firebase) {
+        firebase.initializeApp(data.config);
+        console.log('Firebase Cloud Service initialized successfully.');
+        setupAuthListeners();
+      } else {
+        console.log('Firebase config not enabled. Continuing in Guest/Local Storage Mode.');
+        setupGuestModeUI();
+      }
+    } catch (err) {
+      console.warn('Unable to reach Firebase config endpoint, default to Local storage:', err);
+      setupGuestModeUI();
+    }
+  }
+
+  function setupGuestModeUI() {
+    const authPanel = document.getElementById('auth-panel');
+    if (authPanel) {
+      authPanel.innerHTML = `
+        <div id="auth-state-unlogged">
+          <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>☁️</span> Local Mode
+          </h4>
+          <p style="font-size: 0.72rem; color: var(--text-muted); line-height: 1.3;">
+            Cloud sync offline. Scans are saved securely on this browser.
+          </p>
+        </div>
+      `;
+    }
+  }
+
+  function setupAuthListeners() {
+    firebase.auth().onAuthStateChanged(user => {
+      const authUnlogged = document.getElementById('auth-state-unlogged');
+      const authLogged = document.getElementById('auth-state-logged');
+      const userEmailEl = document.getElementById('auth-user-email');
+
+      if (firestoreUnsubscribe) {
+        firestoreUnsubscribe();
+        firestoreUnsubscribe = null;
+      }
+
+      if (user) {
+        // Logged In
+        if (authUnlogged) authUnlogged.style.display = 'none';
+        if (authLogged) authLogged.style.display = 'block';
+        if (userEmailEl) userEmailEl.textContent = user.email;
+
+        // Perform local storage merge sync
+        window.StorageManager.syncLocalToFirestore();
+
+        // Listen for Firestore DB updates
+        firestoreUnsubscribe = window.StorageManager.setupFirestoreListener(user, () => {
+          if (window.initializeDashboard) {
+            window.initializeDashboard();
+          }
+        });
+      } else {
+        // Logged Out
+        if (authUnlogged) authUnlogged.style.display = 'block';
+        if (authLogged) authLogged.style.display = 'none';
+
+        if (window.initializeDashboard) {
+          window.initializeDashboard();
+        }
+      }
+    });
+  }
+
+  // Auth Dialog Modals
+  const authModal = document.getElementById('auth-modal');
+  const btnShowAuth = document.getElementById('btn-show-auth');
+  const btnCloseAuthModal = document.getElementById('btn-close-auth-modal');
+  const tabLogin = document.getElementById('tab-auth-login');
+  const tabRegister = document.getElementById('tab-auth-register');
+  
+  const authForm = document.getElementById('auth-form');
+  const emailInput = document.getElementById('auth-email');
+  const passwordInput = document.getElementById('auth-password');
+  const authErrorMsg = document.getElementById('auth-error-msg');
+  const btnAuthSubmit = document.getElementById('btn-auth-submit');
+  const btnLogout = document.getElementById('btn-auth-logout');
+
+  if (btnShowAuth) {
+    btnShowAuth.addEventListener('click', () => {
+      authErrorMsg.style.display = 'none';
+      emailInput.value = '';
+      passwordInput.value = '';
+      authModal.style.display = 'flex';
+    });
+  }
+
+  if (btnCloseAuthModal) {
+    btnCloseAuthModal.addEventListener('click', () => {
+      authModal.style.display = 'none';
+    });
+  }
+
+  // Close modal when clicking background overlay
+  if (authModal) {
+    authModal.addEventListener('click', (e) => {
+      if (e.target === authModal) {
+        authModal.style.display = 'none';
+      }
+    });
+  }
+
+  if (tabLogin && tabRegister) {
+    tabLogin.addEventListener('click', () => {
+      authMode = 'login';
+      tabLogin.classList.add('active');
+      tabLogin.style.color = 'var(--primary)';
+      tabLogin.style.borderBottom = '2px solid var(--primary)';
+      tabRegister.classList.remove('active');
+      tabRegister.style.color = 'var(--text-secondary)';
+      tabRegister.style.borderBottom = 'none';
+      btnAuthSubmit.textContent = 'Sign In';
+    });
+
+    tabRegister.addEventListener('click', () => {
+      authMode = 'register';
+      tabRegister.classList.add('active');
+      tabRegister.style.color = 'var(--primary)';
+      tabRegister.style.borderBottom = '2px solid var(--primary)';
+      tabLogin.classList.remove('active');
+      tabLogin.style.color = 'var(--text-secondary)';
+      tabLogin.style.borderBottom = 'none';
+      btnAuthSubmit.textContent = 'Register Account';
+    });
+  }
+
+  if (authForm) {
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      
+      authErrorMsg.style.display = 'none';
+      btnAuthSubmit.disabled = true;
+
+      try {
+        if (authMode === 'login') {
+          await firebase.auth().signInWithEmailAndPassword(email, password);
+        } else {
+          await firebase.auth().createUserWithEmailAndPassword(email, password);
+        }
+        // Success
+        authModal.style.display = 'none';
+      } catch (err) {
+        console.error('Authentication error:', err);
+        authErrorMsg.textContent = err.message || 'Authentication failed. Please check credentials.';
+        authErrorMsg.style.display = 'block';
+      } finally {
+        btnAuthSubmit.disabled = false;
+      }
+    });
+  }
+
+  if (btnLogout) {
+    btnLogout.addEventListener('click', () => {
+      firebase.auth().signOut().catch(err => console.error('Signout failed:', err));
+    });
+  }
+
+  // Interview Prep views sub-tab triggers
+  const subtabSandbox = document.getElementById('subtab-btn-sandbox');
+  const subtabSimulator = document.getElementById('subtab-btn-simulator');
+  const panelSandbox = document.getElementById('interview-sandbox-panel');
+  const panelSimulator = document.getElementById('interview-simulator-panel');
+
+  if (subtabSandbox && subtabSimulator && panelSandbox && panelSimulator) {
+    subtabSandbox.addEventListener('click', () => {
+      subtabSandbox.classList.add('active');
+      subtabSandbox.style.color = 'var(--primary)';
+      subtabSandbox.style.borderBottom = '2px solid var(--primary)';
+      subtabSimulator.classList.remove('active');
+      subtabSimulator.style.color = 'var(--text-secondary)';
+      subtabSimulator.style.borderBottom = 'none';
+      
+      panelSandbox.style.display = 'block';
+      panelSimulator.style.display = 'none';
+    });
+
+    subtabSimulator.addEventListener('click', () => {
+      subtabSimulator.classList.add('active');
+      subtabSimulator.style.color = 'var(--primary)';
+      subtabSimulator.style.borderBottom = '2px solid var(--primary)';
+      subtabSandbox.classList.remove('active');
+      subtabSandbox.style.color = 'var(--text-secondary)';
+      subtabSandbox.style.borderBottom = 'none';
+      
+      panelSandbox.style.display = 'none';
+      panelSimulator.style.display = 'block';
+
+      // Prefill simulator config inputs if values are present in Sandbox
+      const sandboxRole = document.getElementById('interview-target-role')?.value.trim();
+      const sandboxDesc = document.getElementById('interview-job-desc')?.value.trim();
+      const simRole = document.getElementById('sim-target-role');
+      const simDesc = document.getElementById('sim-job-desc');
+
+      if (sandboxRole && simRole && !simRole.value) {
+        simRole.value = sandboxRole;
+        // Trigger verification checking
+        simRole.dispatchEvent(new Event('input'));
+      }
+      if (sandboxDesc && simDesc && !simDesc.value) {
+        simDesc.value = sandboxDesc;
+      }
+    });
+  }
+
+  // Initialize Page Coordinator
+  checkServerStatus();
+  initFirebase();
+  switchTab('dashboard'); // Start on Dashboard
+});
