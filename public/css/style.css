@@ -1513,6 +1513,8 @@ select.textarea-input {
 
   .stat-label {
     font-size: 0.72rem;
+    white-space: normal;
+    text-overflow: clip;
   }
 
   .charts-grid {
@@ -1575,6 +1577,8 @@ select.textarea-input {
 
   .stat-label {
     font-size: 0.7rem;
+    white-space: normal;
+    text-overflow: clip;
   }
 
   .gauge-number {
