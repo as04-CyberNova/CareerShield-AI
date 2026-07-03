@@ -1458,10 +1458,11 @@ select.textarea-input {
 
   .main-content {
     padding: 1.75rem 2rem;
-    height: auto;
-    min-height: calc(100vh - 80px);
-    min-height: calc(100dvh - 80px);
-    overflow-y: visible;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   .charts-grid {
@@ -1544,10 +1545,11 @@ select.textarea-input {
   /* Main content — full width with top padding for hamburger btn */
   .main-content {
     padding: 5rem 1.25rem 2rem;
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-    overflow-y: visible;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     min-width: 0;
     width: 100%;
     overflow-x: hidden;
