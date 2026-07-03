@@ -425,6 +425,22 @@ document.addEventListener('DOMContentLoaded', () => {
     animateCursor();
   }
 
+  // --- APP THEME SWITCHER CONTROLLER ---
+  const themeSelector = document.getElementById('theme-selector');
+  if (themeSelector) {
+    // Load saved theme on boot
+    const savedTheme = localStorage.getItem('careershield_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeSelector.value = savedTheme;
+
+    // Listen for theme selector changes
+    themeSelector.addEventListener('change', (e) => {
+      const selectedTheme = e.target.value;
+      document.documentElement.setAttribute('data-theme', selectedTheme);
+      localStorage.setItem('careershield_theme', selectedTheme);
+    });
+  }
+
   // Initialize Page Coordinator
   checkServerStatus();
   initFirebase();

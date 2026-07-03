@@ -139,8 +139,21 @@
         </ul>
       </div>
 
+      <!-- Theme Selection Panel -->
+      <div id="theme-panel" class="sidebar-theme-panel" style="margin-top: auto; padding: 1.25rem 1rem; border-top: 1px solid var(--border-light);">
+        <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+          <span>🎨</span> App Theme
+        </h4>
+        <select id="theme-selector" class="textarea-input" style="min-height: auto; padding: 0.45rem 0.75rem; font-size: 0.82rem; background: rgba(15,23,42,0.6); color: var(--text-primary); border-radius: 8px; width: 100%; border: 1px solid var(--border-light); cursor: pointer;">
+          <option value="dark">Default (Dark)</option>
+          <option value="light">Current (Light)</option>
+          <option value="rainbow-dark">Rainbow (Dark)</option>
+          <option value="rainbow-light">Rainbow (Light)</option>
+        </select>
+      </div>
+
       <!-- Cloud Authentication Panel -->
-      <div id="auth-panel" class="sidebar-auth-panel" style="margin-top: auto; padding: 1.25rem 1rem; border-top: 1px solid var(--border-light);">
+      <div id="auth-panel" class="sidebar-auth-panel" style="padding: 1.25rem 1rem; border-top: 1px solid var(--border-light);">
         <!-- State: Unauthenticated -->
         <div id="auth-state-unlogged">
           <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.35rem;">
