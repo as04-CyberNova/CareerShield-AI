@@ -1562,13 +1562,20 @@ select.textarea-input {
 
   /* Stats → auto-wrap columns based on width, prevent overflow */
   .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
   }
 
   .stat-card {
-    padding: 1rem !important;
-    gap: 0.75rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.25rem 0.5rem !important;
+    gap: 0.6rem;
+  }
+
+  .stat-info {
+    align-items: center;
   }
 
   .stat-icon {
@@ -1629,13 +1636,20 @@ select.textarea-input {
   }
 
   .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.6rem;
   }
 
   .stat-card {
-    padding: 0.85rem !important;
-    gap: 0.6rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem 0.4rem !important;
+    gap: 0.5rem;
+  }
+
+  .stat-info {
+    align-items: center;
   }
 
   .stat-icon {
