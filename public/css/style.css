@@ -1805,14 +1805,13 @@ select.textarea-input {
   }
 
   /* Stack button flex rows vertically on mobile to prevent cropping */
-  div[style*="display: flex"][style*="gap: 1rem"],
-  div[style*="display: flex"][style*="gap: 0.75rem"] {
+  .flex-btn-group {
     flex-direction: column !important;
     align-items: stretch !important;
     width: 100% !important;
     gap: 0.75rem !important;
   }
-  div[style*="display: flex"] > .btn {
+  .flex-btn-group > .btn {
     width: 100% !important;
     flex: none !important;
   }
