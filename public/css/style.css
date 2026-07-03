@@ -1815,4 +1815,18 @@ select.textarea-input {
     width: 100% !important;
     flex: none !important;
   }
+
+  /* Single submit/action buttons styling on mobile */
+  #btn-optimize-profile, 
+  #btn-auth-submit, 
+  #btn-optimize-post, 
+  #btn-copy-profile-post, 
+  #btn-copy-optimized-post, 
+  #btn-copy-coverletter {
+    width: 100% !important;
+    min-height: 44px !important;
+    height: auto !important;
+    align-self: stretch !important;
+    margin-right: 0 !important;
+  }
 }
