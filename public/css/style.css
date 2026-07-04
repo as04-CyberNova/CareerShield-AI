@@ -279,6 +279,9 @@
 [data-theme="light"] .history-table td,
 [data-theme="rainbow-light"] .history-table td { border-color: rgba(15, 23, 42, 0.05) !important; }
 
+[data-theme="light"] .history-table tr,
+[data-theme="rainbow-light"] .history-table tr { background: rgba(15, 23, 42, 0.03) !important; }
+
 [data-theme="light"] .brand-icon,
 [data-theme="rainbow-light"] .brand-icon { box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.2) !important; }
 
