@@ -90,6 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
       activePanel.classList.add('active');
     }
 
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+      if (tabId === 'linkedin') {
+        mainContent.classList.add('linkedin-full-width');
+      } else {
+        mainContent.classList.remove('linkedin-full-width');
+      }
+    }
+
     // 3. Update title and descriptions
     if (viewMeta[tabId]) {
       viewTitle.innerHTML = viewMeta[tabId].title;

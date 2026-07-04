@@ -1458,51 +1458,7 @@
         </div>
       </section>
 
-    </main>
-  </div>
-
-  <!-- Skill Gap Micro-Lesson Popup Modal -->
-  <div id="skill-lesson-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2500; padding: 1.5rem;">
-    <div class="card modal-card" style="max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-glow); box-shadow: 0 0 35px rgba(139, 92, 246, 0.2); animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); background: #0b1120; padding: 1.5rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.85rem; margin-bottom: 1.25rem;">
-        <h3 id="lesson-skill-name" style="font-family: var(--font-header); font-weight: 800; font-size: 1.35rem; color: #8b5cf6;">Skill Micro-Lesson</h3>
-        <button id="btn-close-lesson-modal" style="background: none; border: none; color: var(--text-secondary); font-size: 1.75rem; cursor: pointer; line-height: 1; transition: var(--transition);">&times;</button>
-      </div>
-
-      <!-- Loading Inner -->
-      <div id="lesson-modal-loading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 0; gap: 1rem;">
-        <div class="spinner"></div>
-        <div style="color: var(--text-secondary); font-size: 0.9rem;">Gemini is compiling lesson...</div>
-      </div>
-
-      <!-- Content Inner -->
-      <div id="lesson-modal-content" style="display: none;">
-        <!-- Explainer -->
-        <div class="section-block" style="margin-bottom: 1.5rem;">
-          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
-            <span>📖</span> Beginner Explainer
-          </h4>
-          <p id="lesson-explainer" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;"></p>
-        </div>
-
-        <!-- Exercises -->
-        <div class="section-block" style="margin-bottom: 1.5rem; border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
-          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
-            <span>💻</span> Practical Practice Exercises
-          </h4>
-          <div id="lesson-exercises-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
-        </div>
-
-        <!-- Resources Suggestions -->
-        <div class="section-block" style="border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
-          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
-            <span>📚</span> Recommended Learning Resources
-          </h4>
-          <div id="lesson-resources-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+    
 
       <!-- ═══════════════════════════════ VIEW 11: LINKEDIN INTELLIGENCE ═══════════════════════════════ -->
       <section id="linkedin-view" class="tab-panel">
@@ -1900,7 +1856,53 @@
         </div>
 
       </section>
-      <!-- ═══════════════════════════════════════════════════════════════════ -->
+      
+    
+    </main>
+  </div>
+
+  <!-- Skill Gap Micro-Lesson Popup Modal -->
+  <div id="skill-lesson-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2500; padding: 1.5rem;">
+    <div class="card modal-card" style="max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-glow); box-shadow: 0 0 35px rgba(139, 92, 246, 0.2); animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); background: #0b1120; padding: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 0.85rem; margin-bottom: 1.25rem;">
+        <h3 id="lesson-skill-name" style="font-family: var(--font-header); font-weight: 800; font-size: 1.35rem; color: #8b5cf6;">Skill Micro-Lesson</h3>
+        <button id="btn-close-lesson-modal" style="background: none; border: none; color: var(--text-secondary); font-size: 1.75rem; cursor: pointer; line-height: 1; transition: var(--transition);">&times;</button>
+      </div>
+
+      <!-- Loading Inner -->
+      <div id="lesson-modal-loading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 0; gap: 1rem;">
+        <div class="spinner"></div>
+        <div style="color: var(--text-secondary); font-size: 0.9rem;">Gemini is compiling lesson...</div>
+      </div>
+
+      <!-- Content Inner -->
+      <div id="lesson-modal-content" style="display: none;">
+        <!-- Explainer -->
+        <div class="section-block" style="margin-bottom: 1.5rem;">
+          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>📖</span> Beginner Explainer
+          </h4>
+          <p id="lesson-explainer" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;"></p>
+        </div>
+
+        <!-- Exercises -->
+        <div class="section-block" style="margin-bottom: 1.5rem; border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
+          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>💻</span> Practical Practice Exercises
+          </h4>
+          <div id="lesson-exercises-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+        </div>
+
+        <!-- Resources Suggestions -->
+        <div class="section-block" style="border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
+          <h4 style="color: var(--text-primary); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>📚</span> Recommended Learning Resources
+          </h4>
+          <div id="lesson-resources-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- ═══════════════════════════════════════════════════════════════════ -->
 
   <!-- Authentication Modal Popup -->
   <div id="auth-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 15, 30, 0.8); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 2000; padding: 1.5rem;">
