@@ -1,3 +1,4 @@
+# AegisResil Apex - Ignored Files
 node_modules/
 .env
 .DS_Store
