@@ -168,6 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const user = (window.firebase && firebase.auth && firebase.auth()) ? firebase.auth().currentUser : null;
     const guestBypass = sessionStorage.getItem('aegisresil_guest_bypass') === 'true';
 
+    // Toggle Exit Guest button display in the sidebar
+    const btnExitGuest = document.getElementById('btn-exit-guest');
+    if (btnExitGuest) {
+      btnExitGuest.style.display = guestBypass ? 'block' : 'none';
+    }
+
     if (user || guestBypass) {
       if (landingPage) landingPage.style.display = 'none';
       if (appContainer) appContainer.style.display = 'flex';
@@ -296,6 +302,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (landingBtnGuest) {
     landingBtnGuest.addEventListener('click', () => {
       sessionStorage.setItem('aegisresil_guest_bypass', 'true');
+      checkAppAccess();
+    });
+  }
+
+  const btnExitGuest = document.getElementById('btn-exit-guest');
+  if (btnExitGuest) {
+    btnExitGuest.addEventListener('click', () => {
+      sessionStorage.removeItem('aegisresil_guest_bypass');
       checkAppAccess();
     });
   }
