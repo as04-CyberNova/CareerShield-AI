@@ -1295,7 +1295,7 @@ app.post('/api/linkedin/bio-story', async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log('\x1b[32m%s\x1b[0m', `🚀 CareerShield AI Server is running on http://localhost:${port}`);
+  console.log('\x1b[32m%s\x1b[0m', `🚀 AegisResil Apex Server is running on http://localhost:${port}`);
   console.log('\x1b[36m%s\x1b[0m', `👉 Access the application in your browser at http://localhost:${port}`);
 });
 

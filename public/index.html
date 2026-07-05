@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CareerShield AI — Student Scam Protection & Resume Optimization</title>
+  <title>AegisResil Apex — Professional Career Security & Optimization</title>
   <meta name="description" content="Protect your early career journey. Analyze job messages for fraud and optimize your resume for ATS systems using Gemini AI.">
   <meta name="theme-color" content="#0a0d16">
   <link rel="stylesheet" href="css/style.css">
@@ -16,6 +16,79 @@
 
   <!-- Dynamic Cursor Glow Spotlight -->
   <div id="cursor-glow" class="cursor-glow"></div>
+
+  <!-- Landing Page Overlay (Unauthenticated view) -->
+  <div id="landing-page" class="landing-page">
+    <nav class="landing-nav">
+      <div class="landing-container landing-nav-content">
+        <a href="#" class="landing-logo">
+          <div class="landing-logo-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linejoin="round"/>
+              <path d="M9 11l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span>AegisResil Apex</span>
+        </a>
+        <ul class="landing-nav-links">
+          <li><a href="#shield-scan" class="landing-nav-link">Shield & Scan</a></li>
+          <li><a href="#simulate" class="landing-nav-link">Simulate</a></li>
+          <li><a href="#strategize" class="landing-nav-link">Strategize</a></li>
+        </ul>
+        <div class="landing-actions">
+          <button id="landing-btn-login" class="btn" style="background:transparent; border:none; color:var(--text-primary); font-weight:600; cursor:pointer;">Log In</button>
+          <button id="landing-btn-start" class="btn btn-primary">Get Started</button>
+        </div>
+      </div>
+    </nav>
+
+    <header class="landing-hero landing-container">
+      <span class="landing-badge">Next-Gen Career Resilience</span>
+      <h1 class="landing-title">Shield Your Career from the <span>AI Shift</span></h1>
+      <p class="landing-subtitle">Optimize resumes for modern ATS filters, simulate technical loops, and track changing market requirements. Engineered for tech students & early-career developers navigating volatile hiring markets.</p>
+      <div class="landing-hero-actions">
+        <button id="landing-btn-hero-start" class="btn btn-primary" style="font-size:1.05rem; padding:0.85rem 2rem; border-radius:12px; font-weight:700;">Get Started for Free</button>
+        <button id="landing-btn-guest" class="btn" style="font-size:1.05rem; padding:0.85rem 2rem; border-radius:12px; font-weight:700; background:rgba(255,255,255,0.03); border:1px solid var(--border-light); color:var(--text-primary); cursor:pointer;">Continue as Guest</button>
+      </div>
+      
+      <h2 class="landing-section-title">Core Pillars of Application Defense</h2>
+      <div class="landing-grid">
+        <div class="landing-card" id="shield-scan">
+          <div class="landing-card-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="landing-card-title">Shield & Scan</h3>
+          <p class="landing-card-desc">Outsmart modern ATS filters and optimize resumes for tech loops. Verify recruiter offers and emails for safety against employment fraud.</p>
+        </div>
+        <div class="landing-card" id="simulate">
+          <div class="landing-card-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3 class="landing-card-title">Simulate</h3>
+          <p class="landing-card-desc">Practice technical interview questions and full system design loops. Get speech-to-text behavioral evaluation and scoring from Gemini AI.</p>
+        </div>
+        <div class="landing-card" id="strategize">
+          <div class="landing-card-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>
+            </svg>
+          </div>
+          <h3 class="landing-card-title">Strategize</h3>
+          <p class="landing-card-desc">Identify critical skills gaps, build tailored 30-day preparation roadmaps, and generate high-impact cold pitches for recruiters.</p>
+        </div>
+      </div>
+    </header>
+
+    <footer class="landing-footer">
+      <div class="landing-container">
+        <p>&copy; 2026 AegisResil Apex. Powered by advanced Gemini AI reasoning capabilities.</p>
+      </div>
+    </footer>
+  </div>
 
   <!-- Mobile Hamburger Toggle Button -->
   <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle navigation Menu">
@@ -39,7 +112,7 @@
               <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="brand-name">CareerShield AI</span>
+          <span class="brand-name">AegisResil Apex</span>
         </a>
 
         <ul class="nav-links">
@@ -51,8 +124,13 @@
                 <rect x="14" y="12" width="7" height="9" rx="1" />
                 <rect x="3" y="16" width="7" height="5" rx="1" />
               </svg>
-              Dashboard
+              Dashboard Overview
             </button>
+          </li>
+
+          <!-- Pillar 1: Shield & Scan -->
+          <li style="padding: 1.25rem 1rem 0.35rem; font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; border-top: 1px solid rgba(255,255,255,0.02); margin-top: 0.5rem;">
+            Shield & Scan
           </li>
           <li class="nav-item" data-tab="analyzer">
             <button class="nav-btn">
@@ -86,6 +164,24 @@
               Company Trust
             </button>
           </li>
+
+          <!-- Pillar 2: Simulate -->
+          <li style="padding: 1.25rem 1rem 0.35rem; font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; border-top: 1px solid rgba(255,255,255,0.02); margin-top: 0.5rem;">
+            Simulate
+          </li>
+          <li class="nav-item" data-tab="interview">
+            <button class="nav-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Interview Prep
+            </button>
+          </li>
+
+          <!-- Pillar 3: Strategize -->
+          <li style="padding: 1.25rem 1rem 0.35rem; font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; border-top: 1px solid rgba(255,255,255,0.02); margin-top: 0.5rem;">
+            Strategize
+          </li>
           <li class="nav-item" data-tab="roadmap">
             <button class="nav-btn">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -104,14 +200,6 @@
                 <circle cx="12" cy="12" r="2"/>
               </svg>
               Internship Match
-            </button>
-          </li>
-          <li class="nav-item" data-tab="interview">
-            <button class="nav-btn">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              </svg>
-              Interview Prep
             </button>
           </li>
           <li class="nav-item" data-tab="coverletter">
@@ -194,7 +282,7 @@
       </div>
 
       <div class="sidebar-footer" style="padding-top: 0.5rem; margin-top: 0;">
-        <p><strong>CareerShield AI v1.0</strong></p>
+        <p><strong>AegisResil Apex v1.0</strong></p>
         <p>LLM-reasoning based analysis. Supported by Gemini API.</p>
       </div>
     </aside>
@@ -1305,7 +1393,12 @@
               <textarea id="profile-bio" class="textarea-input" style="min-height: 140px;" placeholder="Pasted About details outlining your projects, motivations, or university journey..."></textarea>
             </div>
 
-            <button type="submit" id="btn-optimize-profile" class="btn btn-primary" style="align-self: flex-start; font-weight: 700; width: 220px; height: 42px; justify-content: center;">
+            <button type="submit" id="btn-optimize-profile" class="btn btn-primary" style="align-self: flex-start; font-weight: 700; padding: 0.65rem 1.75rem; min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; width: auto; max-width: 100%; cursor: pointer;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink: 0;">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <polyline points="17 11 19 13 23 9"/>
+              </svg>
               <span>Optimize Professional Profile</span>
             </button>
           </form>

@@ -159,6 +159,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- AegisResil Apex: Landing Page & Auth Access Controller ---
+  const landingPage = document.getElementById('landing-page');
+  const appContainer = document.querySelector('.app-container');
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+
+  function checkAppAccess() {
+    const user = (window.firebase && firebase.auth && firebase.auth()) ? firebase.auth().currentUser : null;
+    const guestBypass = sessionStorage.getItem('aegisresil_guest_bypass') === 'true';
+
+    if (user || guestBypass) {
+      if (landingPage) landingPage.style.display = 'none';
+      if (appContainer) appContainer.style.display = 'flex';
+      if (hamburgerBtn) hamburgerBtn.style.display = 'flex';
+    } else {
+      if (landingPage) landingPage.style.display = 'flex';
+      if (appContainer) appContainer.style.display = 'none';
+      if (hamburgerBtn) hamburgerBtn.style.display = 'none';
+    }
+  }
+
   // --- PHASE 3: CLOUD AUTHENTICATION & INTERVIEW SUBTABS LIFE CYCLES ---
   let firestoreUnsubscribe = null;
   let authMode = 'login'; // 'login' or 'register'
@@ -176,10 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.log('Firebase config not enabled. Continuing in Guest/Local Storage Mode.');
         setupGuestModeUI();
+        checkAppAccess();
       }
     } catch (err) {
       console.warn('Unable to reach Firebase config endpoint, default to Local storage:', err);
       setupGuestModeUI();
+      checkAppAccess();
     }
   }
 
@@ -225,6 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.initializeDashboard();
           }
         });
+
+        checkAppAccess();
       } else {
         // Logged Out
         if (authUnlogged) authUnlogged.style.display = 'block';
@@ -233,6 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.initializeDashboard) {
           window.initializeDashboard();
         }
+
+        checkAppAccess();
       }
     });
   }
@@ -251,12 +277,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAuthSubmit = document.getElementById('btn-auth-submit');
   const btnLogout = document.getElementById('btn-auth-logout');
 
+  // Landing Page Action Button Listeners
+  const landingBtnLogin = document.getElementById('landing-btn-login');
+  const landingBtnStart = document.getElementById('landing-btn-start');
+  const landingBtnHeroStart = document.getElementById('landing-btn-hero-start');
+  const landingBtnGuest = document.getElementById('landing-btn-guest');
+
+  const openAuthModal = () => {
+    authErrorMsg.style.display = 'none';
+    emailInput.value = '';
+    passwordInput.value = '';
+    authModal.style.display = 'flex';
+  };
+
+  if (landingBtnLogin) landingBtnLogin.addEventListener('click', openAuthModal);
+  if (landingBtnStart) landingBtnStart.addEventListener('click', openAuthModal);
+  if (landingBtnHeroStart) landingBtnHeroStart.addEventListener('click', openAuthModal);
+  if (landingBtnGuest) {
+    landingBtnGuest.addEventListener('click', () => {
+      sessionStorage.setItem('aegisresil_guest_bypass', 'true');
+      checkAppAccess();
+    });
+  }
+
   if (btnShowAuth) {
     btnShowAuth.addEventListener('click', () => {
-      authErrorMsg.style.display = 'none';
-      emailInput.value = '';
-      passwordInput.value = '';
-      authModal.style.display = 'flex';
+      openAuthModal();
     });
   }
 
@@ -329,7 +375,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnLogout) {
     btnLogout.addEventListener('click', () => {
-      firebase.auth().signOut().catch(err => console.error('Signout failed:', err));
+      sessionStorage.removeItem('aegisresil_guest_bypass');
+      if (window.firebase && firebase.auth && firebase.auth()) {
+        firebase.auth().signOut().then(() => {
+          checkAppAccess();
+        }).catch(err => console.error('Signout failed:', err));
+      } else {
+        checkAppAccess();
+      }
     });
   }
 
@@ -381,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- MOBILE HAMBURGER MENU & DRAWER NAVIGATION ---
-  const hamburgerBtn = document.getElementById('hamburger-btn');
   const sidebarOverlay = document.getElementById('sidebar-overlay');
 
   function toggleSidebar(forceClose = false) {
