@@ -2880,6 +2880,7 @@ select.textarea-input {
 .landing-title span {
   background: linear-gradient(135deg, var(--primary) 0%, #a5b4fc 50%, var(--secondary) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
