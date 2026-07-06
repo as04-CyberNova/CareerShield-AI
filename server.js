@@ -907,16 +907,16 @@ app.post('/api/optimize-post', async (req, res) => {
   if (!hasApiKey) {
     return res.json({
       isDemo: true,
-      optimized_post: `I used to think "just build projects" was enough to get noticed on LinkedIn.\n\nIt's not.\n\nAfter 3 months of posting and getting minimal engagement, I realized the issue — my hooks were soft.\n\n💻 What I Changed\n🔹 Rewrote every opening line to lead with a counterintuitive statement\n🔹 Replaced passive summaries with specific tool names and metrics\n🔹 Cut every post by 30% — short sentences, hard stops\n🔹 Added a sharp discussion question instead of generic CTAs\n\n💡 Biggest Takeaway: Recruiters scan. They don't read. Write for 3 seconds of attention.\n\n🚀 What's Next: Testing carousel posts with code screenshots.\n\n💬 What's the biggest mistake you see student devs make on LinkedIn?\n\n#LinkedInTips #StudentDeveloper #TechInterns #SoftwareEngineering #CareerGrowth #WebDev #Coding`,
-      hook_analysis: "The hook 'I used to think...' triggers curiosity and positions the author as someone who learned something — readers want to know the lesson.",
+      optimized_post: `I spent 6 hours debugging a model that was "working perfectly."\n\nTurns out, it was too perfect.\n\nHere's what I learned about data leakage the hard way 👇\n\nWhile training a churn prediction model last week, my accuracy hit 99.2%. I should've been suspicious. I wasn't.\n\nThe leak:\n→ I scaled the entire dataset before splitting train/test\n→ Test data statistics quietly leaked into training\n→ My "great model" had just memorized the answer key\n\n3 checks I now run on every project before trusting a metric:\n1. Split BEFORE any preprocessing, not after\n2. Check if performance is "too good" for the problem's difficulty\n3. Look for features that wouldn't exist at prediction time\n\nThe scariest part? This is a mistake even experienced folks make occasionally — it's rarely caught by code review, only by asking "does this number make sense?"\n\nWhat's a mistake in ML/DS that took you way too long to catch?\n\n3rd year CSE-DS student. Data science by major, web dev by hobby — turns out debugging discipline transfers between both.\n\n#DataScience #MachineLearning #StudentProjects`,
+      hook_analysis: "The hook sets up tension immediately: 'debugging 6 hours' combined with 'working perfectly' creates a clear question in the reader's mind: 'why was it perfect?'",
       improvements_made: [
-        "Replaced vague opener with a specific counterintuitive claim.",
-        "Added 4 specific technical bullet points instead of generic summaries.",
-        "Discussion question is specific and invites real answers.",
-        "Removed all corporate fluff phrases."
+        "Structured content according to the BTech CSE-DS Adaptable template.",
+        "Created an immediate pattern break on line 3.",
+        "Structured the 'meat' section with actionable takeaways.",
+        "Ended with a relevant discussion question and soft credibility line."
       ],
-      post_type: "Growth/Curriculum Story",
-      word_count: 142
+      post_type: "Mistake/Failure Explainer",
+      word_count: 198
     });
   }
   // --------------------------
