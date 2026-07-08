@@ -2776,10 +2776,10 @@ select.textarea-input {
   left: 0;
   right: 0;
   height: 70px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   border-bottom: 1px solid var(--border-light);
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(var(--bg-dark-rgb), 0.72);
   z-index: 1600;
   display: flex;
   align-items: center;
@@ -3011,7 +3011,9 @@ select.textarea-input {
   width: 100%;
   border-top: 1px solid var(--border-light);
   padding: 3rem 0;
-  background: rgba(15, 23, 42, 0.3);
+  background: rgba(var(--bg-dark-rgb), 0.55);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   text-align: center;
   font-size: 0.85rem;
   color: var(--text-muted);
